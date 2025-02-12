@@ -7,33 +7,33 @@
 
 - 打开用CocosCreator打开工程项目
 - 点击菜单的扩展->扩展管理器，如下图
-- ![1](.\fy-framework-tools\pic\fy-framework-tools_1.png)
+- ![1](./fy-framework-tools/pic/fy-framework-tools_1.png)
 - 点击已安装扩展，找到`fy-framework-tools`点击开关，如下图
-- ![2](.\fy-framework-tools\pic\fy-framework-tools_2.png)
+- ![2](./fy-framework-tools/pic/fy-framework-tools_2.png)
 - 点击菜单的扩展，找到`ForyunTools`->`1.FY框架工具`
-- ![3](.\fy-framework-tools\pic\fy-framework-tools_3.png)
+- ![3](./fy-framework-tools/pic/fy-framework-tools_3.png)
 - 工具打开完毕，可以开始使用工具，具体使用方法，请参考[fy-framework-tools说明](./fy-framework-tools/README.md)
 
 ## fy-excel-tools
 
 - 打开用CocosCreator打开工程项目
 - 点击菜单的扩展->扩展管理器，如下图
-- ![1](.\fy-excel-tools\pic\fy-excel-tools_1.png)
+- ![1](./fy-excel-tools/pic/fy-excel-tools_1.png)
 - 点击已安装扩展，找到`fy-excel-tools`点击开关，如下图
-- ![2](.\fy-excel-tools\pic\fy-excel-tools_2.png)
+- ![2](./fy-excel-tools/pic/fy-excel-tools_2.png)
 - 点击菜单的扩展，找到`ForyunTools`->`2.Excel转换工具`
-- ![3](.\fy-excel-tools\pic\fy-excel-tools_3.png)
+- ![3](./fy-excel-tools/pic/fy-excel-tools_3.png)
 - 工具打开完毕，可以开始使用工具，具体使用方法，请参考[fy-excel-tools说明](./fy-excel-tools/README.md)
 
 ## fy-electron-tools
 
 - 打开用CocosCreator打开工程项目
 - 点击菜单的扩展->扩展管理器，如下图
-- ![1](.\fy-electron-tools\pic\fy-electron-tools_1.png)
+- ![1](./fy-electron-tools/pic/fy-electron-tools_1.png)
 - 点击已安装扩展，找到`fy-electron-tools`点击开关，如下图
-- ![1](.\fy-electron-tools\pic\fy-electron-tools_2.png)
+- ![1](./fy-electron-tools/pic/fy-electron-tools_2.png)
 - 点击菜单的扩展，找到`ForyunTools`->`4.Electron打包工具`
-- ![1](.\fy-electron-tools\pic\fy-electron-tools_3.png)
+- ![1](./fy-electron-tools/pic/fy-electron-tools_3.png)
 - 工具打开完毕，可以开始使用工具，具体使用方法，请参考[fy-electron-tools说明](./fy-electron-tools/README.md)
 
 # 更新说明
