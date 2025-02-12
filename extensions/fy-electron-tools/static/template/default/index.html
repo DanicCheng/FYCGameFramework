@@ -1,0 +1,76 @@
+<div class="overflow">
+    <div class="content">
+        <ui-section class="config" header="基础配置" expand>
+            <div>
+                <ui-label slot="label" style="width: 100%;margin-top: 6px;" value="项目名:" tooltip="请用英文"></ui-label>
+            </div>
+            <div>
+                <ui-input id="projectName" slot="content" style="width: 100%;margin-bottom: 6px;" value=""></ui-input>
+            </div>
+            <div>
+                <ui-label slot="label" style="width: 100%;margin-top: 6px;" value="作者:"></ui-label>
+            </div>
+            <div>
+                <ui-input id="author" slot="content" style="width: 100%;margin-bottom: 6px;" value=""></ui-input>
+            </div>
+            <div>
+                <ui-label slot="label" style="width: 100%;margin-top: 6px;" value="版本号:"></ui-label>
+            </div>
+            <div>
+                <ui-input id="version" slot="content" style="width: 100%;margin-bottom: 6px;" value=""></ui-input>
+            </div>
+            <ui-prop style="margin-top: 6px;margin-bottom: 6px;">
+                <ui-label slot="label" style="width: 100%;" value="web-mobile目录所在路径:"
+                    tooltip="需先自行构建项目的web-mobile版本"></ui-label>
+                <ui-file id="webPath" style="width: 100%;" style="width: 100%;" value="" type="directory"></ui-file>
+            </ui-prop>
+            <ui-prop style="margin-top: 6px;margin-bottom: 6px;">
+                <ui-label slot="label" style="width: 100%;" value="输出目录："></ui-label>
+                <ui-file id="outputPath" style="width: 100%;" style="width: 100%;" value="" type="directory"></ui-file>
+            </ui-prop>
+            <ui-prop style="margin-top: 6px;margin-bottom: 6px;">
+                <ui-label slot="label" style="width: 100%;" value="游戏图标目录："></ui-label>
+                <ui-file id="iconPath" style="width: 100%;" style="width: 100%;" value="" type="file"></ui-file>
+            </ui-prop>
+            <ui-prop style="margin-top: 6px;">
+                <ui-label slot="label" style="width: 100%;" value="是否重新拷贝web-mobile目录:"></ui-label>
+                <ui-checkbox id="isReCopyWeb" style="width: 100%;" value="true"></ui-checkbox>
+            </ui-prop>
+            <div>
+                <ui-label slot="label" style="width: 100%;margin-top: 6px;" value="steam_appid:"></ui-label>
+            </div>
+            <div>
+                <ui-input id="steamAppID" slot="content" style="width: 100%;margin-bottom: 6px;" value="480"></ui-input>
+            </div>
+        </ui-section>
+        <ui-section class="config" header="操作" expand>
+            <div>
+                <ui-button id="btnPreview" style="width: 100%;margin-top: 6px;">预览项目</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnClear" style="width: 100%;margin-top: 6px;">清空输出目录</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnGen" style="width: 100%;margin-top: 6px;">构建项目</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnGenSteam" style="width: 100%;margin-top: 6px;">构建Steam项目</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnStopGen" style="width: 100%;margin-top: 6px;">停止构建</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnOpenWebPath" style="width: 100%;margin-top: 6px;">打开Web目录</ui-button>
+            </div>
+            <div>
+                <ui-button id="btnOpenOutputPath" style="width: 100%;margin-top: 6px;">打开输出目录</ui-button>
+            </div>
+            <div>
+                <ui-label slot="label" style="width: 100%;margin-top: 6px;" value="日志："></ui-label>
+            </div>
+            <div>
+                <ui-textarea id="log" value="" slot="content" style="width: 100%;height: 100px;"></ui-textarea>
+            </div>
+        </ui-section>
+    </div>
+</div>

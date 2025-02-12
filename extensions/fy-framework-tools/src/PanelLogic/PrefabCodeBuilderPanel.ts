@@ -34,7 +34,7 @@ export default class PrefabCodeBuilderPanel {
 
         this._pgGenPrefabCode.message = '未开始构建';
 
-        this._btnGenPrefabCode.addEventListener('confirm', () => {
+        this._btnGenPrefabCode.addEventListener('confirm', async () => {
 
             this.genCustomTypeMap();
             // 只能点击一次
@@ -52,8 +52,8 @@ export default class PrefabCodeBuilderPanel {
                 Utility.checkDirectory(PrefabCodeBuilderConst.TEMP_DATA_PATH);
             }
 
-            this.genAllPrefabClass(PrefabCodeBuilderConst.PREFAB_PATH, PrefabCodeBuilderEnum.PrefabType.UI, assetChangeFlagData);
-            this.genAllPrefabClass(PrefabCodeBuilderConst.PREFAB_PATH, PrefabCodeBuilderEnum.PrefabType.Entity, assetChangeFlagData);
+            await this.genAllPrefabClass(PrefabCodeBuilderConst.PREFAB_PATH, PrefabCodeBuilderEnum.PrefabType.UI, assetChangeFlagData);
+            await this.genAllPrefabClass(PrefabCodeBuilderConst.PREFAB_PATH, PrefabCodeBuilderEnum.PrefabType.Entity, assetChangeFlagData);
 
             // 清空数据
             assetChangeFlagData = [];
@@ -135,6 +135,12 @@ export default class PrefabCodeBuilderPanel {
                     components = nodeInfo['components'] as Array<string>;
                 }
 
+                if (components == null || components == undefined) {
+                    // 解决根节点只有Node导致的报错
+                    nodeList.push({ name: name, path: nodeInfo['path'] as string, components: components });
+                    continue;
+                }
+
                 // 去掉cc.Node，因为默认第一个获取的就是Node，而且Node不能通过GetComponent获取，Node不是Component
                 components = components.filter(item => item !== "cc.Node");
 
@@ -204,7 +210,9 @@ export default class PrefabCodeBuilderPanel {
             if (nodeNameList && nodeNameList.length > 0) {
                 nodeNameList.pop();
             }
-        } else if (type !== 'cc.CompPrefabInfo' && type !== 'cc.Prefab') {
+        } else if (type !== 'cc.CompPrefabInfo' && type !== 'cc.Prefab' && type !== 'cc.TargetOverrideInfo' && type !== 'cc.TargetInfo') {
+            // cc.TargetOverrideInfo目前不做处理 与预制引用有关
+            // cc.TargetInfo目前不做处理 与预制引用有关
             // 组件
             let nodeName = nodeNameList![nodeNameList!.length - 1];
             let nodeInfo = nodeDict![nodeName];
@@ -253,7 +261,7 @@ export default class PrefabCodeBuilderPanel {
         let eventCallback = '';
         let prefabName = `P_${prefabType}_${className.substring(0, className.length - 4)}`;
         // 用字典来做重复排除
-        let componentDict:{[key:string]: boolean} = {};
+        let componentDict: { [key: string]: boolean } = {};
 
         let len = componentInfoList.length;
         for (let i = 0; i < len; i++) {
@@ -485,6 +493,62 @@ export default class PrefabCodeBuilderPanel {
      * @param assetChangeFlagData 资源
      * @returns 
      */
+    // public static async genAllPrefabClass(resourceRootPath: string, prefabType: PrefabCodeBuilderEnum.PrefabType, assetChangeFlagData: Array<string>) {
+    //     let resourcePath = resourceRootPath + '/' + prefabType;
+    //     if (!Utility.isExist(resourcePath)) {
+    //         console.warn(`预制类型为:${prefabType},其目录不存在:${resourcePath}`);
+    //         return;
+    //     }
+
+    //     // 文件字典 key 文件名不含扩展名 value 文件在resources下的路径
+    //     let fileDict: { [key: string]: string } = {};
+    //     let fileNames = Utility.readFileList(resourcePath, []);
+    //     let fileNamesLen = fileNames.length;
+    //     this._genCount = 0;
+
+    //     if (fileNamesLen <= 0) {
+    //         // console.log(`没有需要生成的脚本, 脚本类型: ${prefabType}`);
+    //         return;
+    //     }
+
+    //     Utility.checkDirectory(PrefabCodeBuilderConst.ROOT_EXPORT_PATH);
+    //     let sPath = PrefabCodeBuilderConst.ROOT_EXPORT_PATH + '/' + prefabType;
+    //     Utility.checkDirectory(sPath);
+
+    //     for (let i = 0; i < fileNamesLen; i++) {
+    //         // 构建View
+    //         let prefabName = fileNames[i].split(`P_${prefabType}_`)[1];
+    //         let moduleName = prefabName.substring(0, prefabName.length - 7);
+    //         let viewClassName = moduleName + 'View';
+    //         let modulePath = sPath + '/' + moduleName;
+    //         let scriptPath = modulePath + `/${viewClassName}.ts`;
+
+    //         this._pgGenPrefabCode.message = fileNames[i];
+    //         this._pgGenPrefabCode.value = this._genCount / fileNamesLen * 100;
+    //         // 让界面有时间刷新
+    //         await new Promise(f => setTimeout(f, 1));
+    //         this._genCount++;
+
+    //         if (Utility.isExist(scriptPath) && assetChangeFlagData.indexOf(fileNames[i]) < 0) {
+    //             // 如果View的脚本已经存在，但是又不在修改列表里面，则不需要创建
+    //             continue;
+    //         }
+
+    //         // 生成脚本
+    //         this.genPrefabClass(fileNames[i], prefabType);
+    //     }
+
+    //     // 编辑器刷新 将新创建的资源导入
+    //     Editor.Message.request('asset-db', 'refresh-asset', `db://assets/Script/${prefabType}`);
+    // }
+
+    /**
+     * 生成所有预制类
+     * @param resourceRootPath 资源根目录
+     * @param prefabType 预制类型
+     * @param assetChangeFlagData 资源
+     * @returns 
+     */
     public static async genAllPrefabClass(resourceRootPath: string, prefabType: PrefabCodeBuilderEnum.PrefabType, assetChangeFlagData: Array<string>) {
         let resourcePath = resourceRootPath + '/' + prefabType;
         if (!Utility.isExist(resourcePath)) {
@@ -492,46 +556,49 @@ export default class PrefabCodeBuilderPanel {
             return;
         }
 
-        // 文件字典 key 文件名不含扩展名 value 文件在resources下的路径
-        let fileDict: { [key: string]: string } = {};
-        let fileNames = Utility.readFileList(resourcePath, []);
+        // 异步读取文件列表
+        let fileNames = await Utility.readFileListAsync(resourcePath, [], ['.meta', '.DS_Store', '']);
         let fileNamesLen = fileNames.length;
         this._genCount = 0;
 
         if (fileNamesLen <= 0) {
-            // console.log(`没有需要生成的脚本, 脚本类型: ${prefabType}`);
             return;
         }
 
+        // 预先创建必要的目录
         Utility.checkDirectory(PrefabCodeBuilderConst.ROOT_EXPORT_PATH);
         let sPath = PrefabCodeBuilderConst.ROOT_EXPORT_PATH + '/' + prefabType;
         Utility.checkDirectory(sPath);
 
         for (let i = 0; i < fileNamesLen; i++) {
-            // 构建View
-            let prefabName = fileNames[i].split(`P_${prefabType}_`)[1];
-            let moduleName = prefabName.substring(0, prefabName.length - 7);
-            let viewClassName = moduleName + 'View';
-            let modulePath = sPath + '/' + moduleName;
-            let scriptPath = modulePath + `/${viewClassName}.ts`;
+            // 并行处理每一批
+            await Promise.all(fileNames.map(async (fileName) => {
+                let prefabName = fileName.split(`P_${prefabType}_`)[1];
+                let moduleName = prefabName.substring(0, prefabName.length - 7);
+                let viewClassName = moduleName + 'View';
+                let modulePath = sPath + '/' + moduleName;
+                let scriptPath = modulePath + `/${viewClassName}.ts`;
 
-            if (Utility.isExist(scriptPath) && assetChangeFlagData.indexOf(fileNames[i]) < 0) {
-                // 如果View的脚本已经存在，但是又不在修改列表里面，则不需要创建
-                continue;
-            }
+                // 更新进度
+                this._genCount++;
+                this._pgGenPrefabCode.message = fileName;
+                this._pgGenPrefabCode.value = (this._genCount / fileNamesLen) * 100;
 
-            this._pgGenPrefabCode.message = fileNames[i];
-            this._pgGenPrefabCode.value = this._genCount / fileNamesLen * 100;
-            // 让界面有时间刷新
-            await new Promise(f => setTimeout(f, 1));
-            // 生成脚本
-            this.genPrefabClass(fileNames[i], prefabType);
+                // 检查是否需要生成脚本
+                if (Utility.isExist(scriptPath) && assetChangeFlagData.indexOf(fileName) < 0) {
+                    return;
+                }
 
-            this._genCount++;
+                // 生成脚本
+                await this.genPrefabClass(fileName, prefabType);
+
+                // 每批处理完后暂停一小段时间，避免阻塞UI
+                await new Promise(f => setTimeout(f, 10));
+            }));
         }
 
-        // 编辑器刷新 将新创建的资源导入
-        Editor.Message.request('asset-db', 'refresh-asset', `db://assets/Script/${prefabType}`);
+        // 编辑器刷新
+        await Editor.Message.request('asset-db', 'refresh-asset', `db://assets/Script/${prefabType}`);
     }
 
     /**

@@ -1,4 +1,4 @@
-import { _decorator, CCFloat, Component, math, Node, Tween, tween } from 'cc';
+import { _decorator, CCFloat, CCInteger, Component, math, Node, Tween, tween } from 'cc';
 import { FY } from '../Base/FY';
 const { ccclass, property } = _decorator;
 
@@ -18,6 +18,17 @@ export class SequenceFrameAnimation extends Component {
         displayName: '间隔时间',
     })
     public interval: number = 1;
+    @property({
+        type: CCInteger,
+        displayName: '重复次数',
+        tooltip: '动画重复次数 -1是无限循环'
+    })
+    public repeatTimes: number = -1;
+    @property({
+        type: Boolean,
+        displayName: '是否自动播放',
+    })
+    public autoPlay: boolean = true;
 
     /* 当前索引 */
     private _curIndex: number = 0;
@@ -25,14 +36,9 @@ export class SequenceFrameAnimation extends Component {
     private _tween: Tween<any> = null;
 
     protected onEnable(): void {
-        this._tween = tween(this.node)
-            .to(this.interval * this.frameArray.length, {}, {
-                onUpdate: (target, ratio) => {
-                    this._curIndex = Math.floor(this.frameArray.length * ratio) % this.frameArray.length;
-                    this.setFrameActive(this._curIndex);
-                }
-            }).repeatForever()
-            .start();
+        if (this.autoPlay) {
+            this.play();
+        }
     }
 
     protected onDisable(): void {
@@ -47,6 +53,27 @@ export class SequenceFrameAnimation extends Component {
         });
         if (index < this.frameArray.length) {
             this.frameArray[index].active = true;
+        }
+    }
+
+    public play() {
+        this._tween = tween(this.node)
+            .to(this.interval * this.frameArray.length, {}, {
+                onUpdate: (target, ratio) => {
+                    this._curIndex = Math.floor(this.frameArray.length * ratio) % this.frameArray.length;
+                    this.setFrameActive(this._curIndex);
+                }
+            });
+        if (this.repeatTimes == -1) {
+            this._tween = this._tween.repeatForever().start();
+        } else if (this.repeatTimes == 0) {
+            this._tween = this._tween.call(() => {
+                this.node.active = false;
+            }).start();
+        } else {
+            this._tween = this._tween.repeat(this.repeatTimes).call(() => {
+                this.node.active = false;
+            }).start();
         }
     }
 }

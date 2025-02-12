@@ -15,13 +15,19 @@ export class FYTimerInfo {
     public curTime: number = 0;
     /** 回调函数 */
     public cb: OnFYTimer = null;
+    /** 上下文 */
+    public content: any = null;
+    /** 是否可以暂停 */
+    public canPause: boolean = true;
 
-    public constructor(key: string, needTime: number, intervalTime: number, cb: OnFYTimer) {
+    public constructor(key: string, needTime: number, intervalTime: number, cb: OnFYTimer, content: any, canPause: boolean) {
         this.key = key;
         this.needTime = needTime;
         this.intervalTime = intervalTime;
         this.cb = cb;
         this.curTime = 0;
         this.intervalTotalTime = 0;
+        this.content = content;
+        this.canPause = canPause;
     }
 }

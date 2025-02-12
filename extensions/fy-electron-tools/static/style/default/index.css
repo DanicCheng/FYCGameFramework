@@ -1,0 +1,15 @@
+.overflow {
+    overflow: auto;
+    height: 100%;
+}
+
+.content {
+    margin: 6px;
+    padding: 10px;
+    border: 1px solid var(--color-normal-border-weaker);
+    border-radius: calc(var(--size-normal-radius) * 1px);
+}
+
+ui-section {
+    margin-bottom: 16px;
+}

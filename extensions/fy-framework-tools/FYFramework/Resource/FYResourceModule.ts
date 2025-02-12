@@ -13,7 +13,6 @@ const { ccclass } = _decorator;
  * 资源模块
  */
 
-@ccclass('FYResourceModule')
 export class FYResourceModule extends FYModule {
     /**
      * 类名
@@ -28,7 +27,7 @@ export class FYResourceModule extends FYModule {
     /** 资源路径配置 */
     private _config: { [key: string]: string };
     /** 资源缓存字典 */
-    private _dictResCache: { [key: string]: object } = Object.create(null);
+    private _dictResCache: { [key: string]: object } = {};
 
     /**
      * 根据资源名获取资源路径

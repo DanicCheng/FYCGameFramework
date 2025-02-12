@@ -25,10 +25,22 @@
 - ![3](.\fy-excel-tools\pic\fy-excel-tools_3.png)
 - 工具打开完毕，可以开始使用工具，具体使用方法，请参考[fy-excel-tools说明](./fy-excel-tools/README.md)
 
+## fy-electron-tools
+
+- 打开用CocosCreator打开工程项目
+- 点击菜单的扩展->扩展管理器，如下图
+- ![1](.\fy-electron-tools\pic\fy-electron-tools_1.png)
+- 点击已安装扩展，找到`fy-electron-tools`点击开关，如下图
+- ![1](.\fy-electron-tools\pic\fy-electron-tools_2.png)
+- 点击菜单的扩展，找到`ForyunTools`->`4.Electron打包工具`
+- ![1](.\fy-electron-tools\pic\fy-electron-tools_3.png)
+- 工具打开完毕，可以开始使用工具，具体使用方法，请参考[fy-electron-tools说明](./fy-electron-tools/README.md)
+
 # 更新说明
 
 - [fy-framework-tools版本更新日志](./fy-framework-tools/版本更新日志.md)
 - [fy-excel-tools版本更新日志](./fy-excel-tools/版本更新日志.md)
+- [fy-electron-tools版本更新日志](./fy-electron-tools/版本更新日志.md)
 
 # 导航
 

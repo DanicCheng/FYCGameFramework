@@ -8,7 +8,6 @@ const { ccclass } = _decorator;
  * 存储模块
  */
 
-@ccclass('FYStorageModule')
 export class FYStorageModule extends FYModule {
     /**
      * 类名

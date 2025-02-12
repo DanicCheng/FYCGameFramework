@@ -17,4 +17,19 @@ Node.prototype["addChildEx"] = function (child: Node): Node {
     return node;
 }
 
+Node.prototype["setPositionX"] = function (x: number) {
+    let position = this.getPosition();
+    this.setPosition(x, position.y, position.z);
+}
+
+Node.prototype["setPositionY"] = function (y: number) {
+    let position = this.getPosition();
+    this.setPosition(position.x, y, position.z);
+}
+
+Node.prototype["setPositionZ"] = function (z: number) {
+    let position = this.getPosition();
+    this.setPosition(position.x, position.y, z);
+}
+
 export { }

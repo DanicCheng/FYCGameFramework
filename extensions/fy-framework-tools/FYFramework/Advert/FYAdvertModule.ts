@@ -8,7 +8,6 @@ const { ccclass } = _decorator;
  * 广告模块
  */
 
-@ccclass('FYAdvertModule')
 export class FYAdvertModule extends FYModule {
     /**
      * 类名

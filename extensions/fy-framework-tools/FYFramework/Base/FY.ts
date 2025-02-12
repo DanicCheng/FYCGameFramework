@@ -16,6 +16,8 @@ import FYUtility from '../Utility/FYUtility';
 import { FYComponent } from './FYComponent';
 import { FYEntry } from './FYEntry';
 import { FYLocalizationComponent } from '../Localization/FYLocalizationComponent';
+import { FYSystemComponent } from '../System/FYSystemComponent';
+import { FYAchievementComponent } from '../Achievement/FYAchievementComponent';
 const { ccclass, executionOrder, menu, property } = _decorator;
 
 @ccclass('FY')
@@ -46,6 +48,10 @@ export class FY extends Component {
     public static timer: FYTimerComponent;
     /** 本地化组件 */
     public static localization: FYLocalizationComponent;
+    /** 系统组件 */
+    public static sys: FYSystemComponent;
+    /** 成就组件 */
+    public static achievement: FYAchievementComponent;
 
     onLoad() {
         // 设置常驻节点
@@ -66,6 +72,8 @@ export class FY extends Component {
         FY.net = this.getOrAddComponent(FYNetComponent);
         FY.timer = this.getOrAddComponent(FYTimerComponent);
         FY.localization = this.getOrAddComponent(FYLocalizationComponent);
+        FY.sys = this.getOrAddComponent(FYSystemComponent);
+        FY.achievement = this.getOrAddComponent(FYAchievementComponent);
     }
 
     public getOrAddComponent<T extends FYComponent>(Ctor: new () => T): T {

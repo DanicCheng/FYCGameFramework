@@ -26,18 +26,19 @@ export class SelfAdaption extends Component {
         let ratio = canvas.width / canvas.height;
 
         let resolutionPolicy;
-        if (designResolutionRatio < ratio) {
-            resolutionPolicy = ResolutionPolicy.FIXED_HEIGHT;
-        } else {
+        if (designResolutionRatio > ratio) {
             resolutionPolicy = ResolutionPolicy.FIXED_WIDTH;
+        } else {
+            resolutionPolicy = ResolutionPolicy.FIXED_HEIGHT;
         }
 
         if (this._curResolutionPolicy !== resolutionPolicy) {
             this._curResolutionPolicy = resolutionPolicy;
-            view.setDesignResolutionSize(size.width, size.height, this._curResolutionPolicy);
+            view.setResolutionPolicy(this._curResolutionPolicy);
         }
 
         // console.log(`designResolutionWidth = ${size.width}, designResolutionHeight = ${size.height}`);
         // console.log(`width = ${game.canvas.width}, height = ${game.canvas.height}`);
+        // console.log(`resolutionPolicy = ${resolutionPolicy}`);
     }
 }

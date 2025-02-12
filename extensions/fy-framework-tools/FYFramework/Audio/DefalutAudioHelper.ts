@@ -17,7 +17,7 @@ export default class DefaultAudioHelper extends FYAudioHelperBase {
         return this._resource
     }
     /** 声音组列表 */
-    private _audioGroupDict: { [key: string]: FYAudioGroup } = Object.create(null);
+    private _audioGroupDict: { [key: string]: FYAudioGroup } = {};
 
     /** 获取声音组数量 */
     public get audioGroupCount(): number {

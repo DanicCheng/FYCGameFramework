@@ -7,7 +7,6 @@ const { ccclass } = _decorator;
 /**
  * 本地化模块
  */
-@ccclass('FYLocalizationModule')
 export class FYLocalizationModule extends FYModule {
     /**
      * 类名

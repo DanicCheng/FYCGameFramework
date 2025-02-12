@@ -83,4 +83,13 @@ export class FYUIComponent extends FYComponent {
     public closeAll() {
         this.ui.closeAll();
     }
+
+    /**
+     * 获取在指定节点下的UI数量
+     * @param parent 父对象
+     * @returns 
+     */
+    public getUICountInNode(parent: Node) {
+        return this.ui.getUICountInNode(parent);
+    }
 }

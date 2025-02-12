@@ -43,7 +43,21 @@ interface String {
 	 * @param template 字符串模板
 	 * @param args 参数
 	 */
-	format:(template: string, ...args: any[]) => string;
+	format: (template: string, ...args: any[]) => string;
+
+	/**
+	 * 在字符串的末尾添加指定的填充字符，直到字符串达到指定的最小长度
+	 * @param targetLength 目标字符串的最小长度。如果原字符串的长度小于 targetLength，则会在原字符串的末尾添加填充字符，直到字符串达到 targetLength 长度。
+	 * @param padString 用于填充的字符串。如果原字符串的长度小于 targetLength，则会使用 padString 中的字符从左到右依次填充到原字符串的末尾，直到字符串达到 targetLength 长度。如果 padString 的长度不足以使原字符串达到 targetLength，则 padString 会重复使用，直到达到目标长度。
+	 */
+	padEnd(targetLength: number, padString: string): string;
+
+	/**
+	 * 在字符串的开头添加指定的填充字符，直到字符串达到指定的最小长度
+	 * @param targetLength 目标字符串的最小长度。
+	 * @param padString 用于填充的字符串。
+	 */
+	padStart(targetLength: number, padString: string): string;
 }
 
 //#endregion

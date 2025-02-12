@@ -9,9 +9,9 @@ type WXBannerAdInfo = { bannerAd: WechatMinigame.BannerAd, onLoad: (res: WechatM
 
 export class WechatAdvertHelper extends FYAdvertHelperBase {
     /** 激烈视频广告字典 */
-    private _rewardedVideoAdDict: { [key: string]: WXRewardedVideoAdInfo } = Object.create(null);
+    private _rewardedVideoAdDict: { [key: string]: WXRewardedVideoAdInfo } = {};
     /** banner广告字典 */
-    private _bannerAdDict: { [key: string]: WXBannerAdInfo } = Object.create(null);
+    private _bannerAdDict: { [key: string]: WXBannerAdInfo } = {};
 
     /**
      * 创建激励视频广告

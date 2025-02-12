@@ -11,5 +11,26 @@ declare module "cc" {
          * @returns 返回新的子对象
          */
         addChildEx: (child: Node) => Node;
+
+        /**
+         * 设置X坐标
+         * @param x X坐标
+         * @returns 
+         */
+        setPositionX: (x: number) => void;
+
+        /**
+         * 设置Y坐标
+         * @param y Y坐标
+         * @returns 
+         */
+        setPositionY: (y: number) => void;
+
+        /**
+         * 设置Z坐标
+         * @param z Z坐标
+         * @returns 
+         */
+        setPositionZ: (z: number) => void;
     }
 }

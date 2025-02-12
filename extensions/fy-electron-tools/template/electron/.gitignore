@@ -1,0 +1,7 @@
+
+#///////////////////////////
+# Cocos Creator 3D Project
+#///////////////////////////
+web-mobile/
+out/
+node_modules/

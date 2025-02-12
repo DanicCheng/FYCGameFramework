@@ -13,12 +13,12 @@ export class FYEventModule extends FYModule {
     /**
      * 事件字典
      */
-    private _dictEvent: { [key: string]: Array<Observer> } = Object.create(null);
+    private _dictEvent: { [key: string]: Array<Observer> } = {};
 
     /**
      * 事件组字典
      */
-    private _dictEventGroup: { [key: string]: { [key: string]: Array<Observer> } } = Object.create(null);
+    private _dictEventGroup: { [key: string]: { [key: string]: Array<Observer> } } = {};
 
     /**
      * 添加事件

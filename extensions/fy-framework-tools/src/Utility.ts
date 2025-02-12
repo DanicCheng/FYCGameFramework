@@ -139,4 +139,86 @@ export default class Utility {
 
         return newPath + tmpPath2.replace('.ts', '');
     }
+
+    /**
+     * 异步读取目录下所有文件
+     * @param path 目录路径
+     * @param filesList 文件列表
+     * @returns Promise<Array<string>>
+     */
+    public static async readFileListAsync(
+        path: string, 
+        filesList: Array<string> = [], 
+        excludeExtensions: string[] = []
+    ): Promise<Array<string>> {
+        try {
+            const fs = require('fs');
+            const pathModule = require('path');
+            const { promisify } = require('util');
+            const readdir = promisify(fs.readdir);
+            const stat = promisify(fs.stat);
+
+            // 读取目录
+            const files = await readdir(path);
+            
+            // 并行处理所有文件和目录
+            await Promise.all(files.map(async (item: string) => {
+                const fullPath = pathModule.join(path, item);
+                const stats = await stat(fullPath);
+                
+                if (stats.isDirectory()) {
+                    // 如果是目录，递归读取，传递排除列表
+                    await this.readFileListAsync(fullPath, filesList, excludeExtensions);
+                } else {
+                    // 检查文件扩展名
+                    const extname = pathModule.extname(fullPath);
+                    if (!excludeExtensions.includes(extname)) {
+                        filesList.push(fullPath);
+                    }
+                }
+            }));
+
+            return filesList;
+        } catch (error) {
+            console.error('读取目录失败:', error);
+            return [];
+        }
+    }
+
+    /**
+     * 异步读取文件内容
+     * @param path 文件路径
+     * @returns Promise<string>
+     */
+    public static async readFileAsync(path: string): Promise<string> {
+        const fs = require('fs');
+        const { promisify } = require('util');
+        const readFile = promisify(fs.readFile);
+
+        try {
+            const data = await readFile(path, 'utf8');
+            return data;
+        } catch (error) {
+            console.error('读取文件失败:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * 异步写入文件
+     * @param path 文件路径
+     * @param content 文件内容
+     */
+    public static async writeFileAsync(path: string, content: string): Promise<void> {
+        const fs = require('fs');
+        const { promisify } = require('util');
+        const writeFile = promisify(fs.writeFile);
+
+        try {
+            await writeFile(path, content, 'utf8');
+        } catch (error) {
+            console.error('写入文件失败:', error);
+            throw error;
+        }
+    }
 }

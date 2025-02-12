@@ -8,7 +8,6 @@ const { ccclass } = _decorator;
  * 分享模块
  */
 
-@ccclass('FYShareModule')
 export class FYShareModule extends FYModule {
     /**
      * 类名

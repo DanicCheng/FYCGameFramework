@@ -9,11 +9,11 @@ import { FYModule } from "./FYModule";
  */
 export class FYEntry {
     /** 组件字典 */
-    private static _dictComponent: { [key: string]: FYComponent } = Object.create(null);
+    private static _dictComponent: { [key: string]: FYComponent } = {};
     /** 组件数量 */
     private static _componentNum: number = 0;
     /** 模块字典 */
-    private static _dictModule: { [key: string]: FYModule } = Object.create(null);
+    private static _dictModule: { [key: string]: FYModule } = {};
 
     /**
      * 获取组件

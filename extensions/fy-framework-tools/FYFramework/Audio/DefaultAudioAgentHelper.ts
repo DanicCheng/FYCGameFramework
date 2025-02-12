@@ -111,6 +111,7 @@ export default class DefaultAudioAgentHelper extends FYAudioAgentHelperBase {
 
     /** 重置数据 */
     public reset(): void {
+        this._audioSource.stop();
         this._audioSource.clip = undefined;
         this._mute = false;
         this._volume = 1;

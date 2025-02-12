@@ -1,0 +1,1 @@
+del .\*.DS_Store /f /s /q /a

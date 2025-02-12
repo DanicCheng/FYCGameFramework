@@ -1,0 +1,49 @@
+{
+    "package_version": 2,
+    "version": "1.0.0",
+    "name": "fy-electron-tools",
+    "description": "i18n:fy-electron-tools.description",
+    "main": "./dist/main.js",
+    "dependencies": {
+        "fs-extra": "^10.0.0"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.5"
+    },
+    "panels": {
+        "default": {
+            "title": "Electron打包工具",
+            "type": "dockable",
+            "main": "dist/panels/default/script",
+            "size": {
+                "min-width": 600,
+                "min-height": 700,
+                "width": 600,
+                "height": 700
+            }
+        }
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "i18n:menu.extension/ForyunTools",
+                "label": "3.Electron打包工具",
+                "message": "open-electron-panel",
+                "order": 3
+            }
+        ],
+        "messages": {
+            "open-electron-panel": {
+                "methods": [
+                    "openElectronPanel"
+                ]
+            }
+        }
+    },
+    "author": "Foryun",
+    "editor": ">=3.3.0",
+    "scripts": {
+        "build": "tsc -b",
+        "watch": "tsc -w"
+    }
+}

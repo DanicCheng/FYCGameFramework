@@ -8,7 +8,6 @@ const { ccclass } = _decorator;
  * 网络模块
  */
 
-@ccclass('FYNetModule')
 export class FYNetModule extends FYModule {
     /**
      * 类名
@@ -17,7 +16,7 @@ export class FYNetModule extends FYModule {
     /** netName为空的默认网络辅助器 */
     private _defaultNetHelper: FYNetHelperBase = undefined;
     /** 网络辅助器字典 */
-    private _netHelperDict: { [key: string]: FYNetHelperBase } = Object.create(null);
+    private _netHelperDict: { [key: string]: FYNetHelperBase } = {};
 
     /**
      * 设置网络辅助器

@@ -44,8 +44,7 @@ export default class FYUtility {
         if (minValue === maxValue) {
             return minValue;
         }
-        // 获取数组从第一个开始到指定个数的下标区间  
-        return FYUtility.getRandomValueDif(minValue, maxValue, 1)[0];
+        return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
     }
 
     /**
@@ -143,6 +142,15 @@ export default class FYUtility {
      */
     static isNullOrEmpty(value: any): boolean {
         return value === undefined || value === null || value === '';
+    }
+
+    /**
+     * 对象是否有效
+     * @param value 对象
+     * @returns 
+     */
+    static isValid(value: any): boolean {
+        return value !== undefined && value !== null && value !== '';
     }
 
     /**
